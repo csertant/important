@@ -7,7 +7,7 @@ Version: 1.0.alpha
 import sys
 import argparse
 from collections import deque
-from important_cleaning import important_clean_program, important_get_fileinfo
+from important_cleaning import important_clean_program, important_get_file_info
 
 
 def init_parser() -> argparse.ArgumentParser:
@@ -36,13 +36,13 @@ def init_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def parse_file(filename) -> str:
+def parse_file(filename: str) -> str:
     with open(filename, 'r', encoding='utf-8') as file:
         content = file.read().replace("\n", "")
     return content
 
 
-def run_code(code_string) -> int:
+def run_code(code_string: str) -> int:
     """Executes program."""
     exit_code = 0
 
@@ -51,7 +51,7 @@ def run_code(code_string) -> int:
     return exit_code
 
 
-def compile_code(code_string) -> (str, int):
+def compile_code(code_string: str) -> (str, int):
     """Compiles program to C language."""
     exit_code = 0
     compiled = ''
@@ -59,10 +59,10 @@ def compile_code(code_string) -> (str, int):
     return compiled, exit_code
 
 
-def save_compiled_code(compiled_code_str, file) -> None:
+def save_compiled_code(compiled_code_str: str, input_file: str, output_file: str) -> None:
     """Saves compiled code to file"""
-    path, name = important_get_fileinfo(file)
-    print(f"Saving to {file}...")
+    path, name = important_get_file_info(output_file, input_file)
+    print(f"[compiler] Saving to {path}\\{name}...")
 
 
 def main() -> None:
@@ -82,7 +82,7 @@ def main() -> None:
     elif 'compile' in mode:
         output = args.output if args.output is not None else filename
         compiled_code, exit_code = compile_code(content)
-        save_compiled_code(compiled_code, output)
+        save_compiled_code(compiled_code, filename, output)
         raise SystemExit(f"[compiler] Process finished with exit code {exit_code}.")
 
 

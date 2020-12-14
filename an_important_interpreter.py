@@ -8,6 +8,7 @@ import sys
 import argparse
 from collections import deque
 from important_cleaning import important_clean_program, important_get_file_info
+from important_operations import execute_operation_atomic, MEMORY_SIZE, MAX_STACK_SIZE
 
 
 def init_parser() -> argparse.ArgumentParser:
@@ -46,7 +47,20 @@ def run_code(code_string: str) -> int:
     """Executes program."""
     exit_code = 0
 
-    cleaned_code_string = important_clean_program(code_string)
+    cleaned_code = important_clean_program(code_string)
+
+    # Initialise
+    ptr = 0
+    memory = [0] * MEMORY_SIZE
+    sptr = 1000
+    stack = deque(maxlen=MAX_STACK_SIZE)
+
+    # Process operations
+    for operation in cleaned_code:
+        try:
+            execute_operation_atomic(operation, ptr, memory, sptr, stack)
+        except Exception as err:
+            pass  # TODO
 
     return exit_code
 

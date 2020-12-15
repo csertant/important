@@ -8,7 +8,7 @@ import sys
 import argparse
 from collections import deque
 from important_cleaning import important_clean_program, important_get_file_info
-from important_operations import execute_operation_atomic, MEMORY_SIZE, MAX_STACK_SIZE
+from important_operations import execute_operation, MEMORY_SIZE, MAX_STACK_SIZE
 
 
 def init_parser() -> argparse.ArgumentParser:
@@ -54,11 +54,15 @@ def run_code(code_string: str) -> int:
     memory = [0] * MEMORY_SIZE
     sptr = 1000
     stack = deque(maxlen=MAX_STACK_SIZE)
+    is_looping = False
+    loop_stack = deque(maxlen=MAX_STACK_SIZE)
+    inner_loops = 0
 
     # Process operations
-    for operation in cleaned_code:
+    for pc in range(len(cleaned_code)):
+        operation = cleaned_code[pc]
         try:
-            execute_operation_atomic(operation, ptr, memory, sptr, stack)
+            execute_operation(pc, operation, ptr, memory, sptr, stack, is_looping, loop_stack, inner_loops)
         except Exception as err:
             pass  # TODO
 
@@ -68,7 +72,9 @@ def run_code(code_string: str) -> int:
 def compile_code(code_string: str) -> (str, int):
     """Compiles program to C language."""
     exit_code = 0
-    compiled = ''
+
+    cleaned_code = important_clean_program(code_string)
+    compiled = compile(code_string)
 
     return compiled, exit_code
 

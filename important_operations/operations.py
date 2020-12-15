@@ -4,7 +4,17 @@ MEMORY_SIZE = 30000
 MAX_STACK_SIZE = 1000
 
 
-def execute_operation_atomic(operation: str, ptr: int, memory: list, sptr: int, stack: deque) -> None:
+def execute_operation(pc: int, operation: str, ptr: int, memory: list, sptr: int, stack: deque, is_looping: bool,
+                      loop_stack: deque, inner_loops: int) -> None:
+    if is_looping:
+        if operation == '{':
+            inner_loops += 1
+        if operation == '}':
+            if inner_loops == 0:
+                is_looping = False
+            else:
+                inner_loops -= 1
+
     if operation == '>':
         ptr = ptr + 1 if ptr < MEMORY_SIZE - 1 else 0
     elif operation == '<':
@@ -26,6 +36,16 @@ def execute_operation_atomic(operation: str, ptr: int, memory: list, sptr: int, 
     elif operation == ';':
         if stack:
             memory[ptr], stack[-1] = stack[-1], memory[ptr]
+    elif operation == '{':
+        if memory[ptr] == 0:
+            is_looping = True
+        else:
+            loop_stack.append(pc)
+    elif operation == '}':
+        if memory[ptr] != 0:
+            pc = loop_stack[-1]
+        else:
+            loop_stack.pop()
     else:
         raise SyntaxError(1)
 

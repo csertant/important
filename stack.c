@@ -13,7 +13,7 @@ v1.0
 struct Stack {
     int top;
     unsigned capacity;
-    int* array;
+    char* array;
 };
 
 // Function to create a stack of given capacity. It initializes size of
@@ -28,7 +28,7 @@ struct Stack* createStack(unsigned capacity)
         stack->capacity = MAXSIZE;
     }
     stack->top = -1;
-    stack->array = (int*)malloc(stack->capacity * sizeof(int));
+    stack->array = (char*)malloc(stack->capacity * sizeof(char));
     return stack;
 }
 
@@ -45,7 +45,7 @@ int isEmpty(struct Stack* stack)
 }
 
 // Function to add an item to stack.  It increases top by 1
-void push(struct Stack* stack, int item)
+void push(struct Stack* stack, char item)
 {
     if (isFull(stack))
         return;
@@ -54,17 +54,17 @@ void push(struct Stack* stack, int item)
 }
 
 // Function to remove an item from stack.  It decreases top by 1
-int pop(struct Stack* stack)
+char pop(struct Stack* stack)
 {
     if (isEmpty(stack))
-        return INT_MIN;
+        return '';
     return stack->array[stack->top--];
 }
 
 // Function to return the top from stack without removing it
-int peek(struct Stack* stack)
+char peek(struct Stack* stack)
 {
     if (isEmpty(stack))
-        return INT_MIN;
+        return '';
     return stack->array[stack->top];
 }

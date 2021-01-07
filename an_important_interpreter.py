@@ -9,7 +9,7 @@ import os
 import argparse
 from collections import deque
 from important_cleaning import important_clean_program, important_get_file_info
-from important_operations import execute_operation, MEMORY_SIZE, MAX_STACK_SIZE, important_compile
+from important_operations import execute, MEMORY_SIZE, MAX_STACK_SIZE, important_compile
 
 
 def init_parser() -> argparse.ArgumentParser:
@@ -50,34 +50,20 @@ def run_code(code_string: str) -> int:
 
     cleaned_code = important_clean_program(code_string)
 
-    # Initialise
-    ptr = 0
-    memory = [0] * MEMORY_SIZE
-    sptr = 1000
-    stack = deque(maxlen=MAX_STACK_SIZE)
-    is_looping = False
-    loop_start = deque(maxlen=MAX_STACK_SIZE)
-    loop_end = deque(maxlen=MAX_STACK_SIZE)
-    inner_loops = 0
-    pc = 0
-
     # Process operations
-    while pc < len(cleaned_code):
-        operation = cleaned_code[pc]
-        try:
-            pc, ptr, is_looping = execute_operation(pc, operation, ptr, memory, sptr, stack, is_looping, loop_start, loop_end, inner_loops)
-            pc += 1
-        except SyntaxError as err:
-            print("[interpreter] Error: {}".format(err))
-            return 1
-        except ValueError as err:
-            print(err.with_traceback(err.__traceback__))
-            return 2
-        except EOFError:
-            print("[interpreter] Unexpected end of file.")
-            return 100
-        except KeyboardInterrupt:
-            raise SystemExit("[interpreter] You exited. Bye!")
+    try:
+        execute(cleaned_code)
+    except SyntaxError as err:
+        print("[interpreter] Error: {}".format(err))
+        return 1
+    except ValueError as err:
+        print(err.with_traceback(err.__traceback__))
+        return 2
+    except EOFError:
+        print("[interpreter] Unexpected end of file.")
+        return 100
+    except KeyboardInterrupt:
+        raise SystemExit("[interpreter] You exited. Bye!")
 
     return exit_code
 

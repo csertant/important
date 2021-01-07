@@ -20,7 +20,7 @@ def important_compile(code) -> str:
         elif operation == 'o':
             code_list.append('\t\tputchar(*ptr);')
         elif operation == 'i':
-            code_list.append('\t\t*ptr=getchar();')
+            code_list.append('\t\t*ptr = getchar();')
         elif operation == '{':
             code_list.append('\twhile(*ptr) {')
         elif operation == '}':
@@ -28,11 +28,11 @@ def important_compile(code) -> str:
         elif operation == 'ˇ':
             code_list.append("\t\tpush(stack, *ptr);")
         elif operation == '^':
-            code_list.append('\t\tpop(stack);')
+            code_list.append('\t\t*ptr = pop(stack);')
         elif operation == ';':
             code_list.append('\t\tchar tmp = *ptr;\n\t\t*ptr = pop(stack);\n\t\tpush(stack, tmp);')
         else:
-            raise SyntaxError(1)
+            raise SyntaxError("Invalid operation: {}".format(operation))
 
     code_list.append(C_END)
 

@@ -5,7 +5,7 @@ MAX_STACK_SIZE = 1000
 
 
 def execute_operation(pc: int, operation: str, ptr: int, memory: list, sptr: int, stack: deque, is_looping: bool,
-                      loop_stack: deque, inner_loops: int) -> None:
+                      loop_start: deque, loop_end: deque, inner_loops: int) -> (int, int, bool):
     if is_looping:
         if operation == '{':
             inner_loops += 1
@@ -37,17 +37,20 @@ def execute_operation(pc: int, operation: str, ptr: int, memory: list, sptr: int
         if stack:
             memory[ptr], stack[-1] = stack[-1], memory[ptr]
     elif operation == '{':
-        if memory[ptr] == 0:
+        if memory[ptr] != 0:
             is_looping = True
+            loop_start.append(pc)
         else:
-            loop_stack.append(pc)
+            pc = loop_end.pop()
     elif operation == '}':
         if memory[ptr] != 0:
-            pc = loop_stack[-1]
+            pc = loop_start[-1]
         else:
-            loop_stack.pop()
+            loop_start.pop()
     else:
-        raise SyntaxError(1)
+        raise SyntaxError("Invalid operation: {}".format(operation))
+
+    return pc, ptr, is_looping
 
 
 def output_byte_atomic(byte: int):

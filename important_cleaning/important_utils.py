@@ -1,10 +1,22 @@
 from pathlib import Path
 
 DEFAULT_EXTENSION = '.c'
+CHARACTER_SET = ['<', '>', '+', '-', 'o', 'i', 'ˇ', '^', ';', '{', '}']
 
 
 def important_clean_program(program_string: str) -> str:
-    pass
+    cleaned_string = ""
+    is_comment = False
+    for char in program_string:
+        if char == ':' and not is_comment:
+            is_comment = True
+            continue
+        if char == ':' and is_comment:
+            is_comment = False
+            continue
+        if is_comment and char in CHARACTER_SET:
+            cleaned_string += char
+    return cleaned_string
 
 
 def important_get_file_info(filepath: str, input_name: str) -> (str, str):

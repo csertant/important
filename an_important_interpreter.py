@@ -1,15 +1,15 @@
 """---------------------------------------------------------------------------------------\
 |    This is An IMPORTANT Interpreter & Compiler for the IMPORTANT language               |
 -----------------------------------------------------------------------------------------|
-Version: 1.0.alpha
+Version: 0.1.1alpha
 """
 
-import sys
-import os
 import argparse
-from collections import deque
+import os
+import sys
+
 from important_cleaning import important_clean_program, important_get_file_info
-from important_operations import execute, MEMORY_SIZE, MAX_STACK_SIZE, important_compile
+from important_operations import execute, important_compile
 
 
 def init_parser() -> argparse.ArgumentParser:

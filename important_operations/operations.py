@@ -47,12 +47,21 @@ def execute(code: str) -> None:
         elif operation == ';':
             if stack:
                 memory[ptr], stack[-1] = stack[-1], memory[ptr]
-        elif operation == '{' and memory[ptr] == 0:
-            pc = bracemap[pc]
-        elif operation == '}' and memory[ptr] != 0:
-            pc = bracemap[pc]
+        elif operation == '{':
+            if memory[ptr] == 0:
+                pc = bracemap[pc]
+            else:
+                pc += 1
+                continue
+        elif operation == '}':
+            if memory[ptr] != 0:
+                pc = bracemap[pc]
+            else:
+                pc += 1
+                continue
         else:
             raise SyntaxError("Invalid operation: {}".format(operation))
+        pc += 1
 
 
 def output_byte_atomic(byte: int):

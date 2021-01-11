@@ -5,14 +5,16 @@ It's extremely important to make your code understandable with plenty of comment
 ## IMPORTANT Language Specification
 *version 1.0*\
 **Table of Contents**\
-I. Preface\
-II. Principles\
-III. [Grammar](#grammar)\
-IV. Examples\
-V. Implementations\
-VI. Acknowledgements
+[I. Preface](#preface)\
+[II. Principles](#principles)\
+[III. Grammar](#grammar)\
+[IV. Examples](#examples)\
+[V. Implementations](#implementations)\
+[VI. Acknowledgement](#acknowledgement)
 
-### III. Grammar <a name="grammar" ></a>
+### I. Preface <a name="preface"></a>
+### II. Principles <a name="principles"></a>
+### III. Grammar <a name="grammar"></a>
 #### 1. Instruction set
 | Command | Description       |
 |---------|-------------------|
@@ -28,3 +30,7 @@ VI. Acknowledgements
 | {       | Jump to matching } if byte at pointer is zero |
 | }       | Jump to matching { if byte at pointer is non zero |
 | :*text*: | Comment |
+
+### IV. Examples <a name="examples"></a>
+### V. Implementations <a name="implementations"></a>
+### VI. Acknowledgement <a name="acknowledgement"></a>

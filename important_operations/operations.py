@@ -34,9 +34,9 @@ def execute(code: str) -> None:
             memory[ptr] += 1
         elif operation == '-':
             memory[ptr] -= 1
-        elif operation == 'o':
+        elif operation == '.':
             output_byte_atomic(memory[ptr])
-        elif operation == 'i':
+        elif operation == ',':
             memory[ptr] = input_byte_atomic()
         elif operation == 'ˇ':
             sptr -= 1

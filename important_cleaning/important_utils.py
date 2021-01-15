@@ -1,7 +1,7 @@
 from pathlib import Path
 
 DEFAULT_EXTENSION = '.c'
-CHARACTER_SET = ['<', '>', '+', '-', 'o', 'i', 'ˇ', '^', ';', '{', '}']
+CHARACTER_SET = ['<', '>', '+', '-', '.', ',', 'ˇ', '^', ';', '{', '}']
 
 
 def important_clean_program(program_string: str) -> str:

@@ -17,9 +17,9 @@ def important_compile(code) -> str:
             code_list.append('\t\t++*ptr;')
         elif operation == '-':
             code_list.append('\t\t--*ptr;')
-        elif operation == 'o':
+        elif operation == '.':
             code_list.append('\t\tputchar(*ptr);')
-        elif operation == 'i':
+        elif operation == ',':
             code_list.append('\t\t*ptr = getchar();')
         elif operation == '{':
             code_list.append('\twhile(*ptr) {')

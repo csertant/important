@@ -1,7 +1,6 @@
 """---------------------------------------------------------------------------------------\
 |    This is An IMPORTANT Interpreter & Compiler for the IMPORTANT language               |
 -----------------------------------------------------------------------------------------|
-Version: 0.1.1alpha
 """
 
 import argparse
@@ -17,29 +16,28 @@ def init_parser() -> argparse.ArgumentParser:
         prog="important_interpreter",
         usage="%(prog)s [file] [options]",
         description="Interpret & execute IMPORTANT code files.",
-        fromfile_prefix_chars='@'
+        fromfile_prefix_chars="@",
     )
     parser.add_argument(
-        "-v", "--version", action="version",
-        version=f"{parser.prog} version: 1.0.alpha"
+        "-v", "--version", action="version", version=f"{parser.prog} version: 1.0.1"
     )
     parser.add_argument(
-        '-m', '--mode', choices=['compile', 'interpret'],
-        type=str, required=True, help='compiler or interpreter mode'
+        "-m",
+        "--mode",
+        choices=["compile", "interpret"],
+        type=str,
+        required=True,
+        help="compiler or interpreter mode",
     )
     parser.add_argument(
-        '-o', '--output', type=str,
-        help='output file name (extension will be .c)'
+        "-o", "--output", type=str, help="output file name (extension will be .c)"
     )
-    parser.add_argument(
-        'filename', type=str, nargs=1,
-        help='file to execute'
-    )
+    parser.add_argument("filename", type=str, nargs=1, help="file to execute")
     return parser
 
 
 def parse_file(filename: str) -> str:
-    with open(filename, 'r', encoding='utf-8') as file:
+    with open(filename, "r", encoding="utf-8") as file:
         content = file.read().replace("\n", "")
     return content
 
@@ -68,7 +66,7 @@ def run_code(code_string: str) -> int:
     return exit_code
 
 
-def compile_code(code_string: str) -> (str, int):
+def compile_code(code_string: str) -> tuple[str, int]:
     """Compiles program to C language."""
     exit_code = 0
 
@@ -78,13 +76,15 @@ def compile_code(code_string: str) -> (str, int):
         compiled = important_compile(cleaned_code)
     except SyntaxError as err:
         print("[compiler] Error: {}".format(err))
-        compiled = None
+        compiled = ""
         exit_code = 1
 
     return compiled, exit_code
 
 
-def save_compiled_code(compiled_code_str: str, input_file: str, output_file: str) -> None:
+def save_compiled_code(
+    compiled_code_str: str, input_file: str, output_file: str
+) -> None:
     """Saves compiled code to file"""
     path, name = important_get_file_info(output_file, input_file)
     print(f"[compiler] Saving to {path}\\{name}...")
@@ -103,10 +103,10 @@ def main() -> None:
         raise SystemExit(f"[{sys.argv[0]}] {filename}: {err.strerror}")
 
     mode = args.mode
-    if 'interpret' in mode:
+    if "interpret" in mode:
         exit_code = run_code(content)
         raise SystemExit(f"[interpreter] Process finished with exit code {exit_code}.")
-    elif 'compile' in mode:
+    elif "compile" in mode:
         output = args.output if args.output is not None else filename
         compiled_code, exit_code = compile_code(content)
         if exit_code != 0:
@@ -115,5 +115,5 @@ def main() -> None:
         raise SystemExit(f"[compiler] Process finished with exit code {exit_code}.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

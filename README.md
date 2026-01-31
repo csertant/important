@@ -3,7 +3,7 @@
 It's extremely important to make your code understandable with plenty of comments
 
 ## IMPORTANT Language Specification
-*version 1.0*\
+*version 1.0.1*\
 **Table of Contents**\
 [I. Preface](#preface)\
 [II. Principles](#principles)\
@@ -18,7 +18,7 @@ to bridge the gap in understanding between the two parties (from at least one si
 a programming language that encourages programmers to write code that is fully understandable to anyone.
 We know that a mere tool alone would not be a solution to such a serious problem, so it is IMPORTANT to note that
 the IMPORTANT language is much more of an attitude-forming purpose than a practical one.
-Those who don’t like that look for other languages, but who does, it’s a hero.
+Those who don't like that look for other languages, but who does, it's a hero.
 ### II. Principles <a name="principles"></a>
 It's IMPORTANT to comment and explain each and every piece of code in *IMPORTANT*, because it's **IMPORTANT**.
 See examples in [section *IV*](#implementations).
@@ -30,20 +30,20 @@ part of the language.
 Another IMPORTANT feature is that the IMPORTANT language supports comments, and they even play an extremely IMPORTANT role
 while running programs. It's almost magic.
 #### 2. Instruction set
-| Command | Description       |
-|---------|-------------------|
-| \>      | Increment pointer |
-| <       | Decrement pointer |
-| +       | Increment byte at pointer |
-| -       | Decrement byte at pointer |
-| .       | Output byte at pointer |
-| ,       | Input byte and place it at pointer |
-| ˇ       | Push byte at pointer to the top of the stack |
-| ^       | Pop byte from the top of the stack and place it at pointer |
-| ;       | Swap byte at pointer with the byte on the top of the stack |
-| {       | Jump to matching } if byte at pointer is zero |
-| }       | Jump to matching { if byte at pointer is non zero |
-| :*text*: | Comment |
+| Command  | Description                                                |
+| -------- | ---------------------------------------------------------- |
+| \>       | Increment pointer                                          |
+| <        | Decrement pointer                                          |
+| +        | Increment byte at pointer                                  |
+| -        | Decrement byte at pointer                                  |
+| .        | Output byte at pointer                                     |
+| ,        | Input byte and place it at pointer                         |
+| ˇ        | Push byte at pointer to the top of the stack               |
+| ^        | Pop byte from the top of the stack and place it at pointer |
+| ;        | Swap byte at pointer with the byte on the top of the stack |
+| {        | Jump to matching } if byte at pointer is zero              |
+| }        | Jump to matching { if byte at pointer is non zero          |
+| :*text*: | Comment                                                    |
 
 ### IV. Examples <a name="examples"></a>
 Small piece of code doing nothing:

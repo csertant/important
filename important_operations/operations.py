@@ -8,8 +8,9 @@ def build_bracemap(code):
     temp_bracestack, bracemap = [], {}
 
     for position, command in enumerate(code):
-        if command == '{': temp_bracestack.append(position)
-        if command == '}':
+        if command == "{":
+            temp_bracestack.append(position)
+        if command == "}":
             start = temp_bracestack.pop()
             bracemap[start] = position
             bracemap[position] = start
@@ -26,34 +27,34 @@ def execute(code: str) -> None:
 
     while pc < len(code):
         operation = code[pc]
-        if operation == '>':
+        if operation == ">":
             ptr = ptr + 1 if ptr < MEMORY_SIZE - 1 else 0
-        elif operation == '<':
+        elif operation == "<":
             ptr = ptr - 1 if ptr > 0 else MEMORY_SIZE - 1
-        elif operation == '+':
+        elif operation == "+":
             memory[ptr] += 1
-        elif operation == '-':
+        elif operation == "-":
             memory[ptr] -= 1
-        elif operation == '.':
+        elif operation == ".":
             output_byte_atomic(memory[ptr])
-        elif operation == ',':
+        elif operation == ",":
             memory[ptr] = input_byte_atomic()
-        elif operation == 'ˇ':
+        elif operation == "ˇ":
             sptr -= 1
             stack.append(memory[ptr])
-        elif operation == '^':
+        elif operation == "^":
             sptr += 1
             memory[ptr] = stack.pop()
-        elif operation == ';':
+        elif operation == ";":
             if stack:
                 memory[ptr], stack[-1] = stack[-1], memory[ptr]
-        elif operation == '{':
+        elif operation == "{":
             if memory[ptr] == 0:
                 pc = bracemap[pc]
             else:
                 pc += 1
                 continue
-        elif operation == '}':
+        elif operation == "}":
             if memory[ptr] != 0:
                 pc = bracemap[pc]
             else:
